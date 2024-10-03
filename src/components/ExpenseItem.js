@@ -1,11 +1,14 @@
 // Write your code here:
 function ExpenseItem(){
     return(
+      <>
+      <div>Date</div>
+      <div>Delhi</div>
       <div>
-        <p>Food - $5 </p>
-        <p>Petrol - $20 </p>
-        <p>Movie - $10  </p>
+        <h2>Title</h2>
+        <div>Amount</div>
       </div>
+      </>
     );
   }
   
