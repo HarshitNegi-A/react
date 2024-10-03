@@ -1,4 +1,6 @@
 import ExpenseItem from "./ExpenseItem";
+import Card from "./Card";
+
 function Expenses(){
   const expenses = [
     { id: "1", date: new Date(2023, 7, 15), title: "Insurance", price: 100 },
@@ -7,7 +9,7 @@ function Expenses(){
     { id: "4", date: new Date(2023, 1, 14), title: "Laptop", price: 200 },
   ];
   return(
-    <>
+    <Card className="expenses">
   {expenses.map((expense, index) => {
         return (
           <ExpenseItem
@@ -18,7 +20,7 @@ function Expenses(){
           ></ExpenseItem>
         );
       })}
-      </>
+      </Card>
 )
 }
 
