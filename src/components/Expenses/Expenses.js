@@ -1,37 +1,61 @@
+// Write your code at relevant places in the code below:
+
+import React, { useState } from "react";
 import ExpenseItem from "./ExpenseItem";
-import "./Expenses.css";
 import ExpensesFilter from "./ExpensesFilter";
+import "./Expenses.css";
 import Card from "../UI/Card";
-import { useState } from "react";
 
-function Expenses(props) {
-  const [filteredYear, setFilteredYear] = useState("2023")
+const Expenses = (props) => {
+  const [filteredYear, setFilteredYear] = useState("2023");
 
-  const changeFilterHandler = (selectedYear) =>{
-    setFilteredYear(selectedYear)
+  const changeFilterHandler = (selectedYear) => {
+    setFilteredYear(selectedYear);
+  };
+
+  const filteredExpenses = props.expenses.filter((expense) => {
+    return expense.date.getFullYear().toString() === filteredYear;
+  });
+
+  let expensesContent = filteredExpenses.map((expense) => {
+      return (
+        <ExpenseItem
+          key={expense.id}
+          title={expense.title}
+          date={expense.date}
+          price={expense.price}
+        />
+      );
+    });
+
+  if (filteredExpenses.length === 1) {
+    expensesContent = filteredExpenses.map((expense) => {
+      return (
+        <>
+        <ExpenseItem
+          key={expense.id}
+          title={expense.title}
+          date={expense.date}
+          price={expense.price}
+        />
+          <p>Only one expense found. Please add more</p>
+        </>
+      );
+    });
+  }
+  if (filteredExpenses.length === 0) {
+    expensesContent = <p>No expenses found</p>
   }
 
-  const filteredExpenses=props.expenses.filter((expense)=>{
-    return expense.date.getFullYear().toString() === filteredYear;
-  })
-  
   return (
     <Card className="expenses">
-      <ExpensesFilter selected={filteredYear} onChangeFilter={changeFilterHandler}/>
-      { 
-      filteredExpenses.map((expense) => {
-        return (
-          
-          <ExpenseItem
-            key={expense.id}
-            title={expense.title}
-            date={expense.date}
-            price={expense.price}
-          />
-        );
-      })}
+      <ExpensesFilter
+        selected={filteredYear}
+        onChangeFilter={changeFilterHandler}
+      />
+      {expensesContent}
     </Card>
   );
-}
+};
 
 export default Expenses;
