@@ -2,16 +2,16 @@ import React from "react";
 import "./ExpenseForm.css";
 import { useState } from "react";
 
-const ExpenseForm = () => {
+const ExpenseForm = (props) => {
   const [enteredTitle, setEntertedTitle] = useState("");
-  const [enteredAmount, setEntertedAmount] = useState("");
+  const [enteredPrice, setEntertedPrice] = useState("");
   const [enteredDate, setEntertedDate] = useState("");
 
   const titleChangeHandler = (event) => {
     setEntertedTitle(event.target.value);
   };
-  const amountChangeHandler = (event) => {
-    setEntertedAmount(event.target.value);
+  const priceChangeHandler = (event) => {
+    setEntertedPrice(event.target.value);
   };
   const dateChangeHandler = (event) => {
     setEntertedDate(event.target.value);
@@ -20,12 +20,14 @@ const ExpenseForm = () => {
   const formSubmitHandler=(event)=>{
     event.preventDefault();
     const expenseData={
-        title : enteredTitle,
-        amount : enteredAmount,
+        
+        price : enteredPrice,
         date : new Date (enteredDate),
+        title : enteredTitle,
     }
+    props.onSaveExpenseData(expenseData);
     setEntertedTitle("")
-    setEntertedAmount("")
+    setEntertedPrice("")
     setEntertedDate("")
   }
 
@@ -37,8 +39,8 @@ const ExpenseForm = () => {
           <input type="text" value={enteredTitle} onChange={titleChangeHandler} id="title" />
         </div>
         <div className="new-expense__control">
-          <label htmlFor="amount">Amount</label>
-          <input type="number" value={enteredAmount} onChange={amountChangeHandler} id="amount" />
+          <label htmlFor="price">Amount</label>
+          <input type="number" value={enteredPrice} onChange={priceChangeHandler} id="price" />
         </div>
         <div className="new-expense__control">
           <label htmlFor="date">Date</label>
