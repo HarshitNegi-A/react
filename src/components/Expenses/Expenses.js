@@ -17,16 +17,8 @@ const Expenses = (props) => {
     return expense.date.getFullYear().toString() === filteredYear;
   });
 
-  let expensesContent = filteredExpenses.map((expense) => {
-      return (
-        <ExpenseItem
-          key={expense.id}
-          title={expense.title}
-          date={expense.date}
-          price={expense.price}
-        />
-      );
-    });
+  
+  let expensesContent  = <p>No expenses found</p>
 
   if (filteredExpenses.length === 1) {
     expensesContent = filteredExpenses.map((expense) => {
@@ -43,8 +35,18 @@ const Expenses = (props) => {
       );
     });
   }
-  if (filteredExpenses.length === 0) {
-    expensesContent = <p>No expenses found</p>
+  if (filteredExpenses.length > 1) {
+   
+    expensesContent = filteredExpenses.map((expense) => {
+      return (
+        <ExpenseItem
+          key={expense.id}
+          title={expense.title}
+          date={expense.date}
+          price={expense.price}
+        />
+      );
+    });
   }
 
   return (
